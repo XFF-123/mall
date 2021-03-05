@@ -17,14 +17,12 @@ export default {
     line-height: 44px;
     /* background-color:rgb(255, 102, 153); */
     text-align: center;
-    box-shadow: 0 3px 1px rgba(100, 100, 100,.1)
+    /* box-shadow: 0 3px 1px rgba(100, 100, 100,.1) */
   }
   .left, .right{  
     width: 60px;
-    /* background-color: blue; */
   }
   .center{
     flex: 1;
-    /* background-color: red; */
   }
 </style>
