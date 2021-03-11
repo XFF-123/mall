@@ -21,11 +21,11 @@
   import TabControl from 'components/content/tabControl/TabControl'
   import GoodsList from 'components/content/goods/GoodsList'
   import Scroll from 'components/common/scroll/Scroll'
-  import BackTop from 'components/content/backTop/BackTop'
 
 
   import { getHomeMultidata, getHomeGoods } from 'network/home'
   import {debounce} from 'commonJs/utils'
+  import {itemListenerMixin, backTopMixin} from 'commonJs/mixin'
 
   export default {
     name: 'Home',
@@ -37,8 +37,8 @@
       TabControl,
       GoodsList,
       Scroll,
-      BackTop
     },
+    mixins: [itemListenerMixin, backTopMixin],
     data() {
       return {
         banners: [],
@@ -50,10 +50,10 @@
         },
         type: ['pop', 'new', 'sell'],
         currentType: 'pop',
-        isShowBackTop: false,
         tabOffsetTop: 0,
         isTabFixed: false,
-        saveY: 0
+        saveY: 0,
+        
       }
     },
     computed: {
@@ -71,11 +71,7 @@
       this.getHomeGoods('sell')
     },
     mounted(){
-      //1.监听item中图片加载完成  (时间总线)
-      const refresh = debounce(this.$refs.scroll.refresh, 200)
-      this.$bus.$on('itemImageLoad', ()=>{
-        refresh()
-      })
+
     },
     // destroyed() {
     //   console.log('home destroyed')
@@ -85,8 +81,11 @@
       this.$refs.scroll.refresh()
     },
     deactivated() {
+      //保存Y值
       this.saveY = this.$refs.scroll.getScrollY()
       // console.log(this.saveY)
+      //取消全局事件的监听
+      this.$bus.$off('itemImageLoad',this.itemImgListener)
     },
     methods: {
       //事件监听相关的方法
@@ -94,10 +93,6 @@
         this.currentType = this.type[index]
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
-      },
-      backClick(){
-        // console.log(this.$refs.scroll.message)
-        this.$refs.scroll.scrollTo(0,0,500)
       },
       wrapperScroll(position){
         // console.log(position)
@@ -166,7 +161,7 @@
     overflow: hidden;
     position: absolute;
     top: 44px;
-    bottom: 52px;
+    bottom: 49px;
     left: 0;
     right: 0;
   }

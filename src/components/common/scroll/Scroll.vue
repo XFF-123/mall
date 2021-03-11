@@ -33,6 +33,7 @@
         probeType: this.probeType,  //监听滚动
         pullUpLoad: this.pullUpLoad,  //上拉加载更多
       })
+      // console.log(this.scroll)
 
       //2.监听滚动的位置
       if (this.probeType === 2 || this.probeType === 3) {

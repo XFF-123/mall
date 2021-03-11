@@ -1,7 +1,5 @@
 <template lang="">
   <div>
-
-
     <scroll class="wrapper" ref="scroll" :probe-type='3' @scroll="wrapperScroll" :pull-up-load='true' @pullingUp="loadMore">
       <ul>
         <li>分类的列表1</li>

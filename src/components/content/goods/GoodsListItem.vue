@@ -1,41 +1,58 @@
 <template lang="">
+
   <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
-    <div class="goods-info">
-      <p>{{goodsItem.title}}</p>
-      <span class="price">{{goodsItem.price}}￥</span>
-      <span class="collect">{{goodsItem.cfav}}</span>
-    </div>
+    <router-link :to="{
+      path: '/detail/'+goodsItem.iid,
+    }" tag="div">
+      <img v-lazy="showImage" alt="" @load="imageLoad">
+      <div class="goods-info">
+        <p>{{goodsItem.title}}</p>
+        <span class="price">{{goodsItem.price}}￥</span>
+        <span class="collect">{{goodsItem.cfav}}</span>
+      </div>
+    </router-link>
+
   </div>
 </template>
 <script>
-export default {
-  name: 'GoodsListItem',
-  props: {
-    goodsItem: {
-      type: Object,
-      default(){
-        return {}
+  export default {
+    name: 'GoodsListItem',
+    props: {
+      goodsItem: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
-    }
-  },
-  methods: {
-    imageLoad(){
-      this.$bus.$emit('itemImageLoad')  //通过事件总线发送出去
-    }
-  },
-}
+    },
+    computed: {
+      showImage(){
+        return this.goodsItem.image || this.goodsItem.show.img
+      }
+    },
+    methods: {
+      imageLoad() {
+        this.$bus.$emit('itemImageLoad')  //通过事件总线发送出去
+      },
+      // itemClick() {
+      //   console.log('跳转到详情页')
+      // }
+
+    },
+  }
 </script>
 <style scoped>
   .goods-item {
     padding-bottom: 5px;
     width: 48vw;
   }
-  .goods-item img{
+
+  .goods-item img {
     border-radius: 5px;
     width: 100%;
   }
-  .goods-info{
+
+  .goods-info {
     font-size: 12px;
     text-align: center;
   }
@@ -47,7 +64,7 @@ export default {
     margin-bottom: 3px;
   }
 
-  .goods-info .price{
+  .goods-info .price {
     color: var(--color-high-text);
     margin-right: 20px;
   }
@@ -55,7 +72,8 @@ export default {
   .goods-info .collect {
     position: relative;
   }
-  .goods-info .collect::before{
+
+  .goods-info .collect::before {
     content: '';
     position: absolute;
     left: -15px;

@@ -19,22 +19,20 @@
   }
 </script>
 
-<style>
-  @import "../../../assets/img/tabbar/iconfont.css";
+<style scoped>
+  @import "~assets/img/tabbar/iconfont.css";
 
   .tab-bar-item {
     flex: 1;
     text-align: center;
     height: 49px;
-    margin-top: 3px;
-  }
-
-  .iconfont {
-    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .tab-bar-item div {
-    font-size: 10px;
+    font-size: 14px;
   }
   .router-link-active{
     color: var(--color-tint);

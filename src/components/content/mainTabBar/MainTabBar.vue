@@ -32,6 +32,9 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  .iconfont {
+    font-size: 24px;
+  }
   
 </style>
